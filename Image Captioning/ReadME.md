@@ -1,4 +1,8 @@
 # Image Captioning with Pytorch
+I build a LSTM-based language decoder network based on the defined layers in
+the network.py. The decoder mainly consists of three layers: a word embedding layer, a one-layer LSTM, and
+a linear (fully-connected) layer.
+
 
 ## Usage
 
