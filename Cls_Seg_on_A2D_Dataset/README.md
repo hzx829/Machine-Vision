@@ -1,4 +1,6 @@
 In this project, I build deep learning models for classification and segmentation on A2D dataset, using Google Cloud. 
+A2D dataset contains 3782 videos with at least 99 instances per valid actor-action tuple and videos are labeled with both pixel-level actors and actions for sampled frames. It considers jointly various types of actors undergoing various actions.
+Details about A2D dataset:http://web.eecs.umich.edu/~jjcorso/r/a2d/
 
 
 
