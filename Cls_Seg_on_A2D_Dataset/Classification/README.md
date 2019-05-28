@@ -14,3 +14,10 @@ We use precision, recall, and F1-score to measure performance of trained models.
 
 ## Result
 You can evaluate your model on the testing set and the results should be a (NXnum_cls) array containing predictions saved as "results.pkl", where N (1044) refers to testing set size and num_cls (43) is the number of classes, and the elements are 0 or 1. You may follow the test.py to do testing.
+
+Neural network architecture:   ResNet152(pretrained) -> Linear layer -> batch normalization layer -> sigmoid(output) -> output  Batch normalization: alpha = 0.01   
+Loss function: Multilabelmarginloss / BCELoss    
+Optimizer: Adam, update all parameters (including weight in pretrained Resnet), learning rate = 1e-3   
+Number of epochs of convergence : 30   Other hyperparameters: batch size = 16;   
+Multilabelmarginloss -> Precision:26.4 Recall:31.7 F1:27.2 
+BCELoss ->Precision:27.1 Recall:34.5 F1:28.8 
