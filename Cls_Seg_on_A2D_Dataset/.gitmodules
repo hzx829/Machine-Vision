@@ -1,0 +1,6 @@
+[submodule "a2d_cls"]
+  path = a2d_cls
+	url = https://github.com/hzx829/Machine-Vision/new/master/Cls_Seg_on_A2D_Dataset/a2d_cls
+[submodule "a2d_seg"]
+	path = a2d_seg
+	url = https://github.com/hzx829/Machine-Vision/new/master/Cls_Seg_on_A2D_Dataset/a2d_seg
