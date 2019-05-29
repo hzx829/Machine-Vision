@@ -43,37 +43,20 @@ class DCFNet(nn.Module):
         :param z: the multiscale searching patch. Shape (3 , num_scale, crop_sz, crop_sz)
         :return response: the response of cross correlation. Shape (3 , 1, crop_sz, crop_sz)
 
-        You are required to calculate response using self.wf to do cross correlation on the searching patch z
+        Calculate response using self.wf to do cross correlation on the searching patch z
         """
         # obtain feature of z and add hanning window
         z = self.feature(z) * self.config.cos_window
-        # TODO: You are required to calculate response using self.wf to do cross correlation on the searching patch z
-        # put your code here
+        
 
         
         
 
         z_fft = torch.rfft(z,signal_ndim=2)
-        #print('z:')
-        #print(z.shape)
-        # print('z.fft:')
-        # print(z_fft.shape)
-        # print('w:')
-        # print(torch.irfft(self.wf,signal_ndim=2).shape)
-        #print('w.fft:',self.wf.shape)
-        # L,num_scale,M,N = z.shape
-        # response = torch.zeros([1,num_scale,M,N],dtype=torch.float32).to(device)
-        # response_f = torch.zeros([1,num_scale,M,N//2+1,2],dtype=torch.float32).to(device)
-        # for l in range(L):
-        #     for num_s in range(num_scale):
-        #         for m in range(M):
-        #             for n in range(N//2+1):
-        #                 response_f[:,num_s,m,n,:] += mulconj_compl(z_fft[l,num_s,m,n],self.wf[:,l,m,n,:])
+                  response_f[:,num_s,m,n,:] += mulconj_compl(z_fft[l,num_s,m,n],self.wf[:,l,m,n,:])
        
         response_f = torch.sum(self.mulconj_compl(z_fft,self.wf),dim=1,keepdim=True).to(device)
         response = (torch.irfft(response_f,signal_ndim=2)).to(device)
-
-        #print('res:',response.shape)
 
 
         return response
@@ -97,11 +80,9 @@ class DCFNet(nn.Module):
         """
         
         with torch.no_grad():
-            #print('lr:',lr)
             # x: feature of patch x with hanning window. Shape (1, 32, crop_sz, crop_sz)
             x = self.feature(x) * self.config.cos_window
-            # TODO: calculate self.xf and self.wf
-            # put your code here
+            #calculate self.xf and self.wf
             xf = torch.rfft(x,signal_ndim =2 )
             if lr == 1.0:
                 self.xf = xf
@@ -118,11 +99,6 @@ class DCFNet(nn.Module):
                 xff_lambda0 = torch.sum(torch.sum(self.xf ** 2 ,dim=4,keepdim=True) ,dim=1,keepdim=True) +self.config.lambda0
                 
                 wf = self.mulconj_compl( self.xf ,self.config.yf)/(xff_lambda0)
-                # print('yf:',self.config.yf.shape,
-                # 'xf:',self.xf.shape,
-                # 'xff:',xff.shape,
-                # 'wf',wf.shape,
-                # 'lambda:',self.config.lambda0)
                 self.wf = (1-lr)*self.wf + lr*wf
             
 
